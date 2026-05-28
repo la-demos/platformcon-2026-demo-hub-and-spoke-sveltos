@@ -34,6 +34,10 @@ If you want to skip the manual steps and just get the demo environment up and ru
 - [helm](https://helm.sh/docs/intro/install/) v4.1.0 or later
 - [Docker](https://docs.docker.com/desktop/), [OrbStack](https://orbstack.dev/download) or another KinD-supported container runtime
 
+Overview of the demo environment:
+
+<img src="images/hub-and-spoke-overview.png" alt="hub-and-spoke" width="700" style="border-radius: 16px;" />
+
 ### 0. KinD demo clusters
 
 The demo environment is defined in [config/demo-environment.yaml](config/demo-environment.yaml).
