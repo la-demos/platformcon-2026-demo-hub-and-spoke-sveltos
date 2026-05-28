@@ -1,0 +1,86 @@
+apiVersion: config.projectsveltos.io/v1beta1
+kind: ClusterProfile
+metadata:
+  name: cert-manager
+  annotations:
+    argocd.argoproj.io/tracking-id: controlplane-projectsveltos:config.projectsveltos.io/ClusterProfile:projectsveltos/cert-manager
+spec:
+  clusterSelector:
+    matchLabels:
+      cert-manager: enabled
+  continueOnConflict: false
+  continueOnError: false
+  helmCharts:
+    - chartName: jetstack/cert-manager
+      chartVersion: v1.20.2
+      helmChartAction: Install
+      releaseName: cert-manager
+      releaseNamespace: cert-manager
+      repositoryName: jetstack
+      repositoryURL: https://charts.jetstack.io
+      values: |
+        crds:
+          enabled: true
+        serviceAccount:
+          automountServiceAccountToken: true
+  reloader: false
+  stopMatchingBehavior: WithdrawPolicies
+  syncMode: Continuous
+  tier: 100
+---
+apiVersion: config.projectsveltos.io/v1beta1
+kind: ClusterProfile
+metadata:
+  name: kro
+  annotations:
+    argocd.argoproj.io/tracking-id: controlplane-projectsveltos:config.projectsveltos.io/ClusterProfile:projectsveltos/kro
+spec:
+  clusterSelector:
+    matchLabels:
+      kro: enabled
+  continueOnConflict: false
+  continueOnError: false
+  helmCharts:
+    - chartName: kro
+      chartVersion: 0.9.1
+      helmChartAction: Install
+      releaseName: kro
+      releaseNamespace: kro-system
+      repositoryName: kro
+      repositoryURL: oci://registry.k8s.io/kro/charts
+      values: |
+        deployment:
+          replicas: 1
+  reloader: false
+  stopMatchingBehavior: WithdrawPolicies
+  syncMode: Continuous
+  tier: 100
+---
+apiVersion: config.projectsveltos.io/v1beta1
+kind: ClusterProfile
+metadata:
+  name: kyverno
+  annotations:
+    argocd.argoproj.io/tracking-id: controlplane-projectsveltos:config.projectsveltos.io/ClusterProfile:projectsveltos/kyverno
+spec:
+  clusterSelector:
+    matchLabels:
+      kyverno: enabled
+  continueOnConflict: false
+  continueOnError: false
+  helmCharts:
+    - chartName: kyverno/kyverno
+      chartVersion: 3.8.1
+      helmChartAction: Install
+      releaseName: kyverno
+      releaseNamespace: kyverno
+      repositoryName: kyverno
+      repositoryURL: https://kyverno.github.io/kyverno
+      values: |
+        admissionController:
+          serviceMonitor:
+            enabled: false
+  reloader: false
+  stopMatchingBehavior: WithdrawPolicies
+  syncMode: Continuous
+  tier: 100

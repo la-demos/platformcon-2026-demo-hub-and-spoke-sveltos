@@ -1,0 +1,41 @@
+# Central demo environment definition.
+# Paths are resolved relative to the repository root when possible.
+clusters:
+  - name: hub
+    kind_config: config/kind/single-node.yaml
+    bootstrap:
+      sveltos:
+        enabled: true
+        prerequisite_manifests:
+          - https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.79.2/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml
+        prerequisite_wait_for_crds:
+          - servicemonitors.monitoring.coreos.com
+        manifests:
+          - https://raw.githubusercontent.com/projectsveltos/sveltos/v1.9.0/manifest/manifest.yaml
+          - https://raw.githubusercontent.com/projectsveltos/sveltos/v1.9.0/manifest/default-instances.yaml
+        wait_for_crds:
+          - clusterprofiles.config.projectsveltos.io
+          - sveltosclusters.lib.projectsveltos.io
+        cluster_profiles: config/sveltos/clusterprofiles.yaml
+  - name: spoke-push
+    kind_config: config/kind/single-node.yaml
+    registration:
+      enabled: true
+      mode: push
+      hub: hub
+      namespace: spoke-push
+      cluster: kind-spoke-push
+      previous_clusters:
+        - spoke-push
+      labels: kro=enabled
+      refresh: true
+  - name: spoke-pull
+    kind_config: config/kind/single-node.yaml
+    registration:
+      enabled: true
+      mode: pull
+      hub: hub
+      namespace: spoke-pull
+      cluster: kind-spoke-pull
+      labels: kro=enabled
+      refresh: true
