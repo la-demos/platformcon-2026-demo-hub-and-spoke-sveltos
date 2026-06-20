@@ -179,9 +179,7 @@ kubectl --context kind-hub get clustersummaries.config.projectsveltos.io -A -o w
 You can also use the sveltosctl to check the addons:
 
 ```bash
-kubectl config use-context kind-hub
-
-sveltosctl show addons
+KUBECONFIG=tmp/platformcon-sveltos/hub.kubeconfig sveltosctl show addons
 
 ┌────────────────────────────┬───────────────┬──────────────┬──────────────┬─────────┬────────────────────────────────┬─────────────────┬─────────────────────────────┐
 │          CLUSTER           │ RESOURCE TYPE │  NAMESPACE   │     NAME     │ VERSION │              TIME              │ DEPLOYMENT TYPE │          PROFILES           │
