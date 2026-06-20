@@ -1,4 +1,4 @@
-# PlatformCon 2026 - Workshop - When hub-and-spoke GitOps becomes a security risk at scale - WIP!
+# PlatformCon 2026 - Workshop - When hub-and-spoke GitOps becomes a security risk at scale - Deep Dive and The Hard Way!
 
 Welcome to the PlatformCon 2026 workshop on "When hub-and-spoke GitOps becomes a security risk at scale". In this workshop, we will explore the potential security risks associated with hub-and-spoke GitOps architectures and discuss strategies to mitigate these risks effectively.
 

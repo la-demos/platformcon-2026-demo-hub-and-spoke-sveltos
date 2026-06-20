@@ -1,6 +1,6 @@
-# PlatformCon 2026 - Workshop - When hub-and-spoke GitOps becomes a security risk at scale - Quickstart - WIP!
+# PlatformCon 2026 - Workshop - When hub-and-spoke GitOps becomes a security risk at scale - Quickstart!
 
-Welcome to the PlatformCon 2026 workshop on "When hub-and-spoke GitOps becomes a security risk at scale". 
+Welcome to the PlatformCon 2026 workshop on "When hub-and-spoke GitOps becomes a security risk at scale".
 In this workshop, we will explore the potential security risks associated with hub-and-spoke GitOps architectures and discuss strategies to mitigate these risks effectively.
 
 After the workshop you should have a better understanding of:
@@ -8,7 +8,7 @@ After the workshop you should have a better understanding of:
 - What is hub-and-spoke GitOps and how it works
 - Why it can become a security risk at scale
 - Why it matters for platform teams by thinking on retail, franchise, production - everything that runs on a edge location as spoke or stand-alone cluster
-- You will also understand what real scale by getting a sneak peak into our scale test to predict the management of 15.000+ clusters
+- You will also understand what real scale by getting a sneak peak into our scale test to predict the management of 15.000+ clusters based on [kubara.io](https://kubara.io)
 - Best practices for securing hub-and-spoke GitOps environments
 - How agent based Pull Mode allows to mitigate some of the risks
 
@@ -174,6 +174,22 @@ Check if Sveltos deployed the application:
 
 ```bash
 kubectl --context kind-hub get clustersummaries.config.projectsveltos.io -A -o wide
+```
+
+You can also use the sveltosctl to check the addons:
+
+```bash
+kubectl config use-context kind-hub
+
+sveltosctl show addons
+
+┌────────────────────────────┬───────────────┬──────────────┬──────────────┬─────────┬────────────────────────────────┬─────────────────┬─────────────────────────────┐
+│          CLUSTER           │ RESOURCE TYPE │  NAMESPACE   │     NAME     │ VERSION │              TIME              │ DEPLOYMENT TYPE │          PROFILES           │
+├────────────────────────────┼───────────────┼──────────────┼──────────────┼─────────┼────────────────────────────────┼─────────────────┼─────────────────────────────┤
+│ spoke-pull/kind-spoke-pull │ helm chart    │ kro-system   │ kro          │ v0.9.1  │ 2026-06-20 14:03:25 +0200 CEST │ Managed cluster │ ClusterProfile/kro          │
+│ spoke-pull/kind-spoke-pull │ helm chart    │ cert-manager │ cert-manager │ v1.20.2 │ 2026-06-20 14:20:38 +0200 CEST │ Managed cluster │ ClusterProfile/cert-manager │
+│ spoke-push/kind-spoke-push │ helm chart    │ kro-system   │ kro          │ v0.9.1  │ 2026-06-20 14:03:14 +0200 CEST │ Managed cluster │ ClusterProfile/kro          │
+└────────────────────────────┴───────────────┴──────────────┴──────────────┴─────────┴────────────────────────────────┴─────────────────┴─────────────────────────────┘
 ```
 
 
